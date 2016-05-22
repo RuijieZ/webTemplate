@@ -12,11 +12,26 @@ angular.module('templateStore.templates', ['ngRoute'])
 		});
 }])
 
-.controller('templatesController', ['$scope', function($scope) {
+.controller('templatesController', ['$scope','$http', function($scope, $http) {
 	console.log('templateController is running');
+	$http.get("json/templates.json").success(function(response) {
+		$scope.templates = response;
+	})
 }])
 
-.controller('templateDetailsController', ['$scope', function($scope) {
+.controller('templateDetailsController', ['$scope','$http','$routeParams', '$filter', function($scope, $http, $routeParams, $filter) {
 	console.log('templateDetailsController is running');
+	var templateId = $routeParams.templateId;
+	$http.get('json/templates.json').success(function(response) {
+		$scope.template = $filter('filter')(response, function(element) {
+			return element.id == templateId;
+		})[0];
+		$scope.mainImage = $scope.template.images[0].name;
+	});
+	$scope.setImage = function(image) {
+		$scope.mainImage = image.name;
+	}
 }])
+
+
 

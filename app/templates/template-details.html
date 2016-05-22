@@ -2,13 +2,19 @@
 	<a href="#/templates"> Go back</a>
 	<br><br>
 	<div class="col-md-4">
-		<img class="img-full" src="img/blue.jpg">
+		<img class="img-full" ng-src="img/{{mainImage}}">
+		<div class="row">
+			<div ng-repeat="image in template.images | limitTo:4">
+				<div class="col-md-3" >
+					<img class="img-full" ng-src="img/{{image.name}}" ng-click="setImage(image)">
+				</div> 
+			</div>
+		</div>
 	</div>
 	<div class="col-md-8">
-		<h3>Blue templates</h3>
-		<p>The truth of life is in the mind of the human kind. When we think, we manifaste, and when we create an 	  emotion, we are essientially creating a vibration that can sync with the world
-		</p>
-		<h4>$19.99</h4>
+		<h3>{{template.name}}</h3>
+		<p>{{template.description}}</p>
+		<h4>{{template.price | currency}}</h4>
 		BUY IT
 	</div>
 
